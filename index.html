@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deteksi COVID-19</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Font Awesome Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+
+<body>
+    <!-- Header Section Start -->
+    <div id="menu-bars" class="fas fa-bars"></div>
+    <header>
+        <img src="{{ url_for('static', filename='asset/logo.png')}}" alt="" width="100" height="100">
+        <a href="#" class="logo">Covid-19 Detection</a>
+        <nav class="navbar">
+            <a href="#home">Beranda</a>
+            <a href="#about">Tentang</a>
+            <a href="#protect">Proteksi</a>
+            <a href="#symptoms">Gejala</a>
+            <a href="#handwash">Cuci Tangan</a>
+        </nav>
+    </header>
+
+    <!-- Header Section End -->
+
+    <!-- Home Section Start -->
+
+    <section class="home" id="home">
+        <div class="content">
+            <h3 style="color: rgb(38, 105, 252);"> <span>Mulai </span>Test Anda</h3>
+            <p class="text">
+                Website ini digunakan dalam mendeteksi COVID-19 melalui suara batuk, website ini juga menyediakan
+                berbagai maca informasi terkait COVID-19 seperti hal yang harus dilakukan dalam masa pandemi, cara
+                menjaga kesehatan!
+            </p>
+
+            <form class="form-horizontal" action="/submit" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label style="font-size: 25px;" class="control-label col-sm-2" for="pwd">Upload Suara Batuk (Wav):</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="form-control" placeholder="Hours Studied" name="my_image" id="pwd" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-success">Deteksi</button>
+                    </div>
+                </div>
+            </form>
+
+            <br>
+            {% if prediction %}
+            <h2 style="font-size: 20px;"> Hasil Gambar Mel-Spectogram</h2>
+            <img src="{{img_path}}" height="400px" width="400px" />
+            <h2 style="font-size: 30px;">Hasil Prediksi: <i> {{prediction}}% </i></h2>
+
+            {% endif %}
+        </div>
+        <div class="image">
+            <img src="{{ url_for('static', filename='asset/beranda.PNG')}}" alt="">
+        </div>
+        <div class="credit">
+            <h2>Contact Person :</h2>
+            <img src="{{ url_for('static', filename='asset/wa.png')}}" alt="" width="20" height="20">
+            <a href="https://wa.link/llpwph">Glenn Budiman</a>
+            <br>
+            <img src="{{ url_for('static', filename='asset/wa.png')}}" alt="" width="20" height="20">
+            <a href="https://wa.link/86apke">Glandy Mundung</a>
+        </div>
+    </section>
+
+    <!-- Home Section End -->
+
+    <!-- About Section Start -->
+
+    <section class="about" id="about">
+        <div class="content">
+            <h3>Apa itu <span>COVID-19</span></h3>
+            <p>
+                Virus Corona atau severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2) adalah
+                virus yang menyerang sistem pernapasan. Penyakit akibat infeksi virus ini disebut COVID-19.
+                Virus Corona bisa menyebabkan gangguan ringan pada sistem pernapasan, infeksi paru-paru yang berat,
+                hingga kematian.
+            </p>
+            <a href="https://covid19.go.id/" class="btn">Learn More</a>
+        </div>
+
+        <div class="image">
+            <img src="{{ url_for('static', filename='asset/about.png')}}" alt="">
+        </div>
+
+    </section>
+
+    <!-- About Section End -->
+
+
+    <!-- Protect Section Start -->
+    <section class="protect" id="protect">
+        <h1 class="heading">Bagaimana Cara<span> Menjaga </span>diri</h1>
+        <div class="box-container">
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/mask.png')}}" alt="">
+                <br>
+                <br>
+                <br>
+                <h3>Gunakan masker</h3>
+                <p>Manfaat penggunaan masker yang benar bisa melindungi diri sendiri dan juga orang lain
+                    dari penyebaran virus corona yang bisa terjadi melalui udara..
+                </p>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/wash.png')}}" alt="">
+                <h3>Mencuci tangan</h3>
+                <p>Mencuci tangan telah teruji dapat mencegah penyebaran virus dan bakteri penyebab penyakit.
+                </p>
+
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/jarak.png')}}" alt="">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h3>Menjaga Jarak</h3>
+                <p> Jaga jarak fisik atau physical distancing. Dengan menerapkan physical distancing ketika
+                    beraktivitas di luar ruangan atau tempat umum, Anda sudah melakukan satu langkah mencegah terinfeksi
+                    virus Corona.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Protect Section End -->
+
+    <!-- Symptoms Section Start -->
+    <section class="symptoms" id="symptoms">
+        <div class="content">
+            <h1>Apa Saja <span>Gejala</span> Utama-nya?</h1>
+            <p>Penting bagi kita untuk mengenali gejala terinfeksi virus Corona. Dengan
+                mengenali gejala COVID-19 lebih awal, pemeriksaan dan penanganan pun bisa segera
+                dilakukan agar penyakit ini tidak menular ke orang lain. Berikut ini merupakan beberapa gejala umum
+                covid-19.
+            </p>
+            <ul>
+                <div class="one">
+                    <li>Demam</li>
+                    <li>Kelelahan</li>
+                    <li>Batuk Kering</li>
+                </div>
+                <div class="two">
+                    <li>Sakit Tenggorokan</li>
+                    <li>Sakit dan Nyeri</li>
+                    <li>Sesak Napas</li>
+                </div>
+            </ul>
+
+        </div>
+        <div class="image">
+            <img src="{{ url_for('static', filename='asset/symptomus-img1.svg')}}" alt="">
+        </div>
+    </section>
+
+    <!-- Symptoms Section End -->
+
+    <!-- Handwash Section Start -->
+    <section class="handwash" id="handwash">
+        <h1 class="heading">Cara <span>Mencuci</span> Tangan yang Baik</h1>
+        <div class="box-container">
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/hadnwash-1.png')}}" alt="">
+                <h3>Menggunakan sabun</h3>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/hadnwash-2.png')}}" alt="">
+                <h3>Gosok kedua telapak tangan</h3>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/hadnwash-3.png')}}" alt="">
+                <h3>Gosok diantara jari</h3>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/hadnwash-4.png')}}" alt="">
+                <h3>Gosok belakang telapak tangan</h3>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/hadnwash-5.png')}}" alt="">
+                <h3>Bersihkan dengan air bersih</h3>
+            </div>
+            <div class="box">
+                <img src="{{ url_for('static', filename='asset/hadnwash-6.png')}}" alt="">
+                <h3>Keringkan dengan handuk bersih</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Handwash Section End -->
+
+    <!-- Footer Section Start -->
+
+
+    <!-- Footer Section End -->
+
+
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js')}}"></script>
+
+</body>
+
+</html>
